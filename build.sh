@@ -1100,9 +1100,9 @@ T=jpeg-6b
 # Install libatk
 # 
 
-  P=ATK_2_22
-  URL='http://git.gnome.org/browse/atk/snapshot/ATK_2_22.tar.xz'
-  CKSUM=sha256:27d4dc33283787e77935ac725aaf4d1bd283feb18898072bfecf61183b71a1b9
+  P=atk-2.22.0
+  URL='https://ftp.gnome.org/pub/gnome/sources/atk/2.22/atk-2.22.0.tar.xz'
+  CKSUM=sha256:d349f5ca4974c9c76a4963e5b254720523b0c78672cbc0e1a3475dbd9b3d44b6
 
   build_and_install_autotools \
     ${P} \
