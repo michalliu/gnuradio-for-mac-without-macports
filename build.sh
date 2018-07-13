@@ -816,6 +816,9 @@ build_and_install_autotools \
 #
 # Install mako
 # 
+  #P=Mako-1.0.6
+  #URL=https://mirror.csclub.uwaterloo.ca/gentoo-distfiles/distfiles/Mako-1.0.6.tar.gz
+  #CKSUM=sha256:48559ebd872a8e77f92005884b3d88ffae552812cdf17db6768e5c3be5ebbe0d
 
   P=Mako-1.0.3
   URL=https://mirror.csclub.uwaterloo.ca/gentoo-distfiles/distfiles/Mako-1.0.3.tar.gz
