@@ -961,7 +961,7 @@ unset SKIP_LIBTOOLIZE
 # 
 
 P=libpng-1.6.28
-URL='https://mirror.csclub.uwaterloo.ca/gentoo-distfiles/distfiles/libpng-1.6.28.tar.xz'
+URL='https://ftp.osuosl.org/pub/blfs/conglomeration/libpng/libpng-1.6.28.tar.xz'
 CKSUM=sha256:d8d3ec9de6b5db740fefac702c37ffcf96ae46cb17c18c1544635a3852f78f7a
 
 build_and_install_autotools \
