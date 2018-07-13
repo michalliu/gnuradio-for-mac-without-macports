@@ -1,0 +1,27 @@
+From 63cb3b995425b936bf1a6f0fb86f42dfe75ded3f Mon Sep 17 00:00:00 2001
+From: michalliu <michalliu@foxmail.com>
+Date: Fri, 13 Jul 2018 22:15:07 +0800
+Subject: [PATCH] Fix m4_copy: won't overwrite defined macro: glib_DEFUN
+
+---
+ glib/m4macros/glib-gettext.m4 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/glib/m4macros/glib-gettext.m4 b/glib/m4macros/glib-gettext.m4
+index 5217fd8..9f39b5f 100644
+--- a/glib/m4macros/glib-gettext.m4
++++ b/glib/m4macros/glib-gettext.m4
+@@ -36,8 +36,8 @@ dnl We go to great lengths to make sure that aclocal won't
+ dnl try to pull in the installed version of these macros
+ dnl when running aclocal in the glib directory.
+ dnl
+-m4_copy([AC_DEFUN],[glib_DEFUN])
+-m4_copy([AC_REQUIRE],[glib_REQUIRE])
++m4_copy_force([AC_DEFUN],[glib_DEFUN])
++m4_copy_force([AC_REQUIRE],[glib_REQUIRE])
+ dnl
+ dnl At the end, if we're not within glib, we'll define the public
+ dnl definitions in terms of our private definitions.
+-- 
+2.10.2
+
