@@ -911,8 +911,11 @@ build_and_install_setup_py \
 # Install lxml
 # 
 
+# Need delete libsystem_darwin.dylib in /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/usr/lib/libSystem.B.tbd
+# otherwise compile failed due file not found: /usr/lib/system/libsystem_darwin.dylib for architecture x86_64
+# Reference: https://forums.developer.apple.com/thread/87829
     P=lxml-3.7.3
-    URL='https://mirror.csclub.uwaterloo.ca/gentoo-distfiles/distfiles/lxml-3.7.3.tar.gz'
+    URL='http://pypi.pediapress.com/packages/mirror/lxml-3.7.3.tar.gz'
     CKSUM=sha256:aa502d78a51ee7d127b4824ff96500f0181d3c7826e6ee7b800d068be79361c7
 
 LDFLAGS="${LDFLAGS} $(python-config --ldflags)" \
@@ -1018,7 +1021,7 @@ T=jpeg-6b
 # 
 
   P=harfbuzz-1.4.3
-  URL='https://mirror.csclub.uwaterloo.ca/gentoo-distfiles/distfiles/harfbuzz-1.4.3.tar.bz2'
+  URL='https://ftp.osuosl.org/pub/blfs/conglomeration/harfbuzz/harfbuzz-1.4.3.tar.bz2'
   CKSUM=sha256:838c17400a88a3a451eb401573ef94cdd50919730d98255547c459fef1d85321
 
   build_and_install_autotools \
@@ -1031,7 +1034,7 @@ T=jpeg-6b
 # 
 
   P=fontconfig-2.12.1
-  URL='https://mirror.csclub.uwaterloo.ca/gentoo-distfiles/distfiles/fontconfig-2.12.1.tar.bz2'
+  URL='https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.12.1.tar.bz2'
   CKSUM=sha256:b449a3e10c47e1d1c7a6ec6e2016cca73d3bd68fbbd4f0ae5cc6b573f7d6c7f3
 
   build_and_install_autotools \
@@ -1044,7 +1047,7 @@ T=jpeg-6b
 # 
 
     P=cairo-1.14.8
-    URL='https://mirror.csclub.uwaterloo.ca/gentoo-distfiles/distfiles/cairo-1.14.8.tar.xz'
+    URL='https://ftp.osuosl.org/pub/blfs/conglomeration/cairo/cairo-1.14.8.tar.xz'
     CKSUM=sha256:d1f2d98ae9a4111564f6de4e013d639cf77155baf2556582295a0f00a9bc5e20
 
   build_and_install_autotools \
@@ -1057,7 +1060,7 @@ T=jpeg-6b
 # 
 
     P=py2cairo-1.10.0
-    URL='https://mirror.csclub.uwaterloo.ca/gentoo-distfiles/distfiles/py2cairo-1.10.0.tar.bz2'
+    URL='https://cairographics.org/releases/py2cairo-1.10.0.tar.bz2'
     CKSUM=sha256:d30439f06c2ec1a39e27464c6c828b6eface3b22ee17b2de05dc409e429a7431
 
   build_and_install_autotools \
