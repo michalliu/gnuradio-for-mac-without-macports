@@ -863,6 +863,7 @@ build_and_install_setup_py \
     ${P} \
     ${URL} \
     ${CKSUM}
+unset EXTRA_OPTS
 
 #
 # Install thrift
