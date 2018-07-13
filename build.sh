@@ -60,7 +60,9 @@ INSTALL_DIR=${CONTENTS_DIR}/MacOS
 MAKE="${MAKE:-"make -j$(ncpus)"}"
 PYTHON=python2.7
 
-PYTHON_FRAMEWORK_DIR=/System/Library/Frameworks/Python.framework/Versions/2.7
+SSL_VERSION=`python -c "import requests; print(requests.get('https://www.howsmyssl.com/a/check', verify=False).json()['tls_version'])"`
+
+#PYTHON_FRAMEWORK_DIR=/System/Library/Frameworks/Python.framework/Versions/2.7
 
 export PYTHONPATH=${INSTALL_DIR}/usr/lib/${PYTHON}/site-packages
 export SDLDIR=${INSTALL_DIR}/usr
@@ -74,8 +76,11 @@ function check_prerequisites() {
   [[ -d ${XQUARTZ_APP_DIR} ]] \
     || E "XQuartz is not installed. Download it at http://www.xquartz.org/"
 
-  [[ -d ${PYTHON_FRAMEWORK_DIR} ]] \
-    || E "Python 2.7 is not installed. Download it here: https://www.python.org/downloads/"
+  [[ "TLS 1.2" = "${SSL_VERSION}" ]] \
+	  || E "Python compiled with TLS 1.2 support is required, virtualenv is suggested https://virtualenv.pypa.io"
+
+#  [[ -d ${PYTHON_FRAMEWORK_DIR} ]] \
+#    || E "Python 2.7 is not installed. Download it here: https://www.python.org/downloads/"
 }
 
 function gen_version() {
