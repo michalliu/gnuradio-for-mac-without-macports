@@ -885,7 +885,7 @@ unset EXTRA_OPTS
 # 
 
     P=orc-0.4.26
-    URL='https://mirror.csclub.uwaterloo.ca/gentoo-distfiles/distfiles/orc-0.4.26.tar.xz'
+    URL='https://gstreamer.freedesktop.org/src/orc/orc-0.4.26.tar.xz'
     CKSUM=sha256:7d52fa80ef84988359c3434e1eea302d077a08987abdde6905678ebcad4fa649
 
   build_and_install_autotools \
