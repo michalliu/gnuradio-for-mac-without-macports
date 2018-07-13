@@ -868,17 +868,17 @@ unset EXTRA_OPTS
 #
 # Install thrift
 # 
-    P=thrift-0.10.0
-    URL='http://apache.mirror.gtcomm.net/thrift/0.10.0/thrift-0.10.0.tar.gz'
-    CKSUM=sha256:2289d02de6e8db04cbbabb921aeb62bfe3098c4c83f36eec6c31194301efa10b
-
-  PY_PREFIX="${INSTALL_DIR}/usr" \
-  CXXFLAGS="${CPPFLAGS}" \
-  EXTRA_OPTS="--without-perl --without-php" \
-  build_and_install_autotools \
-    ${P} \
-    ${URL} \
-    ${CKSUM}
+#    P=thrift-0.10.0
+#    URL='http://apache.mirror.gtcomm.net/thrift/0.10.0/thrift-0.10.0.tar.gz'
+#    CKSUM=sha256:2289d02de6e8db04cbbabb921aeb62bfe3098c4c83f36eec6c31194301efa10b
+#
+#  PY_PREFIX="${INSTALL_DIR}/usr" \
+#  CXXFLAGS="${CPPFLAGS}" \
+#  EXTRA_OPTS="--without-perl --without-php" \
+#  build_and_install_autotools \
+#    ${P} \
+#    ${URL} \
+#    ${CKSUM}
 
 #
 # Install orc
@@ -1401,19 +1401,19 @@ fi
 # Install uhd
 #
 
-  P=uhd
-  URL=git://github.com/EttusResearch/uhd.git
-  CKSUM=git:25fc32af6585fcbb23ff8d89d0a88c76bc21b3b3
-  T=${P}
-  BRANCH=master
-
-  EXTRA_OPTS="-DENABLE_E300=ON -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}/usr ${TMP_DIR}/${T}/host" \
-  build_and_install_cmake \
-    ${P} \
-    ${URL} \
-    ${CKSUM} \
-    ${T} \
-    ${BRANCH}
+#  P=uhd
+#  URL=git://github.com/EttusResearch/uhd.git
+#  CKSUM=git:25fc32af6585fcbb23ff8d89d0a88c76bc21b3b3
+#  T=${P}
+#  BRANCH=master
+#
+#  EXTRA_OPTS="-DENABLE_E300=ON -DCMAKE_INSTALL_PREFIX=${INSTALL_DIR}/usr ${TMP_DIR}/${T}/host" \
+#  build_and_install_cmake \
+#    ${P} \
+#    ${URL} \
+#    ${CKSUM} \
+#    ${T} \
+#    ${BRANCH}
 
 #
 # install SDL
@@ -1472,196 +1472,196 @@ build_and_install_autotools \
 # Get wx widgets
 #
 
-P=wxWidgets-3.0.2
-URL='http://pkgs.fedoraproject.org/repo/pkgs/wxGTK3/wxWidgets-3.0.2.tar.bz2/md5/ba4cd1f3853d0cd49134c5ae028ad080/wxWidgets-3.0.2.tar.bz2'
-CKSUM=sha256:346879dc554f3ab8d6da2704f651ecb504a22e9d31c17ef5449b129ed711585d
-T=${P}
-
-  SKIP_AUTORECONF=yes \
-  SKIP_LIBTOOLIZE=yes \
-  EXTRA_OPTS="--with-gtk --enable-utf8only" \
-  build_and_install_autotools \
-    ${P} \
-    ${URL} \
-    ${CKSUM}
+#P=wxWidgets-3.0.2
+#URL='http://pkgs.fedoraproject.org/repo/pkgs/wxGTK3/wxWidgets-3.0.2.tar.bz2/md5/ba4cd1f3853d0cd49134c5ae028ad080/wxWidgets-3.0.2.tar.bz2'
+#CKSUM=sha256:346879dc554f3ab8d6da2704f651ecb504a22e9d31c17ef5449b129ed711585d
+#T=${P}
+#
+#  SKIP_AUTORECONF=yes \
+#  SKIP_LIBTOOLIZE=yes \
+#  EXTRA_OPTS="--with-gtk --enable-utf8only" \
+#  build_and_install_autotools \
+#    ${P} \
+#    ${URL} \
+#    ${CKSUM}
 
 #
 # install wxpython
 #
 
-  P=wxPython-src-3.0.2.0
-  URL=http://svwh.dl.sourceforge.net/project/wxpython/wxPython/3.0.2.0/wxPython-src-3.0.2.0.tar.bz2
-  CKSUM=sha256:d54129e5fbea4fb8091c87b2980760b72c22a386cb3b9dd2eebc928ef5e8df61
-  T=${P}
-  BRANCH=""
-
-  if [ -f ${TMP_DIR}/.${P}.done ]; then
-    I "already installed ${P}"    
-  else 
-
-  fetch "${P}" "${URL}" "${T}" "${BRANCH}" "${CKSUM}"
-  unpack ${P} ${URL} ${T}
-
-  _extra_cflags="$(pkg-config --cflags gtk+-2.0) $(pkg-config --cflags libgdk-x11) $(pkg-config --cflags x11)"
-  _extra_libs="$(pkg-config --libs gtk+-2.0) $(pkg-config --libs gdk-x11-2.0) $(pkg-config --libs x11)"
-
-  D "Configuring and building in ${T}"
-  cd ${TMP_DIR}/${T}/wxPython \
-    && \
-      CC=${CXX} \
-      CFLAGS="${CPPFLAGS} ${_extra_cflags} ${CFLAGS}" \
-      CXXFLAGS="${CPPFLAGS} ${_extra_cflags} ${CXXFLAGS}" \
-      LDFLAGS="${LDFLAGS} ${_extra_libs}" \
-      ${PYTHON} setup.py WXPORT=gtk2 ARCH=x86_64 build \
-    && \
-      CC=${CXX} \
-      CFLAGS="${CPPFLAGS} ${_extra_cflags} ${CFLAGS}" \
-      CXXFLAGS="${CPPFLAGS} ${_extra_cflags} ${CXXFLAGS}" \
-      LDFLAGS="${LDFLAGS} ${_extra_libs}" \
-      ${PYTHON} setup.py WXPORT=gtk2 ARCH=x86_64 install \
-        --prefix="${INSTALL_DIR}/usr" \
-    && D "copying wx.pth to ${PYTHONPATH}/wx.pth" \
-    && cp \
-       ${TMP_DIR}/${T}/wxPython/src/wx.pth \
-       ${PYTHONPATH} \
-    || E "failed to build and install ${P}"
-
-  I "finished building and installing ${P}"
-  
-  touch ${TMP_DIR}/.${P}.done
-
-fi
+#  P=wxPython-src-3.0.2.0
+#  URL=http://svwh.dl.sourceforge.net/project/wxpython/wxPython/3.0.2.0/wxPython-src-3.0.2.0.tar.bz2
+#  CKSUM=sha256:d54129e5fbea4fb8091c87b2980760b72c22a386cb3b9dd2eebc928ef5e8df61
+#  T=${P}
+#  BRANCH=""
+#
+#  if [ -f ${TMP_DIR}/.${P}.done ]; then
+#    I "already installed ${P}"    
+#  else 
+#
+#  fetch "${P}" "${URL}" "${T}" "${BRANCH}" "${CKSUM}"
+#  unpack ${P} ${URL} ${T}
+#
+#  _extra_cflags="$(pkg-config --cflags gtk+-2.0) $(pkg-config --cflags libgdk-x11) $(pkg-config --cflags x11)"
+#  _extra_libs="$(pkg-config --libs gtk+-2.0) $(pkg-config --libs gdk-x11-2.0) $(pkg-config --libs x11)"
+#
+#  D "Configuring and building in ${T}"
+#  cd ${TMP_DIR}/${T}/wxPython \
+#    && \
+#      CC=${CXX} \
+#      CFLAGS="${CPPFLAGS} ${_extra_cflags} ${CFLAGS}" \
+#      CXXFLAGS="${CPPFLAGS} ${_extra_cflags} ${CXXFLAGS}" \
+#      LDFLAGS="${LDFLAGS} ${_extra_libs}" \
+#      ${PYTHON} setup.py WXPORT=gtk2 ARCH=x86_64 build \
+#    && \
+#      CC=${CXX} \
+#      CFLAGS="${CPPFLAGS} ${_extra_cflags} ${CFLAGS}" \
+#      CXXFLAGS="${CPPFLAGS} ${_extra_cflags} ${CXXFLAGS}" \
+#      LDFLAGS="${LDFLAGS} ${_extra_libs}" \
+#      ${PYTHON} setup.py WXPORT=gtk2 ARCH=x86_64 install \
+#        --prefix="${INSTALL_DIR}/usr" \
+#    && D "copying wx.pth to ${PYTHONPATH}/wx.pth" \
+#    && cp \
+#       ${TMP_DIR}/${T}/wxPython/src/wx.pth \
+#       ${PYTHONPATH} \
+#    || E "failed to build and install ${P}"
+#
+#  I "finished building and installing ${P}"
+#  
+#  touch ${TMP_DIR}/.${P}.done
+#
+#fi
 
 #
 # Install rtl-sdr
 #
 
-  P=rtl-sdr
-  URL=git://git.osmocom.org/rtl-sdr
-  CKSUM=git:df9596b2d1ebd36cdb14549cfdd76c25092e14d0
-  T=${P}
-  BRANCH=18bf26989c926a5db4fca29e7d859af42af1437c
-
-  LDFLAGS="${LDFLAGS} $(python-config --ldflags)" \
-  build_and_install_autotools \
-    ${P} \
-    ${URL} \
-    ${CKSUM} \
-    ${T} \
-    ${BRANCH}
+#  P=rtl-sdr
+#  URL=git://git.osmocom.org/rtl-sdr
+#  CKSUM=git:df9596b2d1ebd36cdb14549cfdd76c25092e14d0
+#  T=${P}
+#  BRANCH=18bf26989c926a5db4fca29e7d859af42af1437c
+#
+#  LDFLAGS="${LDFLAGS} $(python-config --ldflags)" \
+#  build_and_install_autotools \
+#    ${P} \
+#    ${URL} \
+#    ${CKSUM} \
+#    ${T} \
+#    ${BRANCH}
 
 #
 # Install QT
 #
 
-P=qt-x11-opensource-src-4.4.3
-URL=http://mirror.csclub.uwaterloo.ca/qtproject/archive/qt/4.4/qt-x11-opensource-src-4.4.3.tar.gz
-CKSUM=sha256:79ea9fb46d75c3759e3e98ab0064a47eaa5bdbbc2a53d923d60bd8e9cd0bc5c6
-T=${P}
-BRANCH=""
-
-if [ -f ${TMP_DIR}/.${P}.done ]; then
-    I "already installed ${P}"
-else
-  INSTALL_QGL="yes"
-  rm -Rf ${INSTALL_DIR}/usr/lib/libQt*
-  rm -Rf ${INSTALL_DIR}/usr/include/Qt*
-
-  fetch "${P}" "${URL}" "${T}" "${BRANCH}" "${CKSUM}"
-  unpack ${P} ${URL} ${T} ${BRANCH}
-  
-  I configuring ${P} \
-  && cd ${TMP_DIR}/${T} \
-  && export OPENSOURCE_CXXFLAGS="-D__USE_WS_X11__" \
-  && sh configure                                              \
-    -v                                                         \
-    -confirm-license                                           \
-    -continue                                                  \
-    -release                                                   \
-    -prefix          ${INSTALL_DIR}/usr                                 \
-    -docdir          ${INSTALL_DIR}/usr/share/doc/${name}               \
-    -examplesdir     ${INSTALL_DIR}/usr/share/${name}/examples          \
-    -demosdir        ${INSTALL_DIR}/usr/share/${name}/demos             \
-    -stl \
-    -no-qt3support \
-    -no-xmlpatterns \
-    -no-phonon \
-    -no-phonon-backend \
-    -no-webkit \
-    -no-libmng \
-    -nomake demos \
-    -nomake examples \
-    -system-libpng \
-    -no-gif \
-    -system-libtiff \
-    -no-nis \
-    -no-openssl \
-    -no-dbus \
-    -no-cups \
-    -no-iconv \
-    -no-pch \
-    -arch x86_64 \
-    -L${INSTALL_DIR}/usr/lib                                            \
-    -liconv                                                    \
-    -lresolv                                                   \
-    -I${INSTALL_DIR}/usr/include \
-    -I${INSTALL_DIR}/usr/include/glib-2.0                               \
-    -I${INSTALL_DIR}/usr/lib/glib-2.0/include                           \
-    -I${INSTALL_DIR}/usr/include/libxml2 \
-  || E failed to configure ${P}
-  
-  # qmake obviously still has some Makefile generation issues..
-  for i in $(find * -name 'Makefile*'); do
-    j=${i}.tmp
-    cat ${i} \
-      | sed \
-        -e 's|-framework\ -framework||g' \
-        -e 's|-framework\ -prebind||g' \
-      > ${j}
-    mv ${j} ${i}    
-  done 
-  
-  I building ${P} \
-  && ${MAKE} \
-  || E failed to build ${P}
-  
-  I installing ${P} \
-  && ${MAKE} install \
-  || E failed to install ${P}
-
-
-  if [ "yes" = "${INSTALL_QGL}" ]; then
-    cd ${TMP_DIR}/${T} \
-    && cd src/opengl \
-    && ${MAKE} \
-    && ${MAKE} install \
-    || E "failed to install qgl"
-  fi
-
-  touch ${TMP_DIR}/.${P}.done
-
-fi
+#P=qt-x11-opensource-src-4.4.3
+#URL=http://mirror.csclub.uwaterloo.ca/qtproject/archive/qt/4.4/qt-x11-opensource-src-4.4.3.tar.gz
+#CKSUM=sha256:79ea9fb46d75c3759e3e98ab0064a47eaa5bdbbc2a53d923d60bd8e9cd0bc5c6
+#T=${P}
+#BRANCH=""
+#
+#if [ -f ${TMP_DIR}/.${P}.done ]; then
+#    I "already installed ${P}"
+#else
+#  INSTALL_QGL="yes"
+#  rm -Rf ${INSTALL_DIR}/usr/lib/libQt*
+#  rm -Rf ${INSTALL_DIR}/usr/include/Qt*
+#
+#  fetch "${P}" "${URL}" "${T}" "${BRANCH}" "${CKSUM}"
+#  unpack ${P} ${URL} ${T} ${BRANCH}
+#  
+#  I configuring ${P} \
+#  && cd ${TMP_DIR}/${T} \
+#  && export OPENSOURCE_CXXFLAGS="-D__USE_WS_X11__" \
+#  && sh configure                                              \
+#    -v                                                         \
+#    -confirm-license                                           \
+#    -continue                                                  \
+#    -release                                                   \
+#    -prefix          ${INSTALL_DIR}/usr                                 \
+#    -docdir          ${INSTALL_DIR}/usr/share/doc/${name}               \
+#    -examplesdir     ${INSTALL_DIR}/usr/share/${name}/examples          \
+#    -demosdir        ${INSTALL_DIR}/usr/share/${name}/demos             \
+#    -stl \
+#    -no-qt3support \
+#    -no-xmlpatterns \
+#    -no-phonon \
+#    -no-phonon-backend \
+#    -no-webkit \
+#    -no-libmng \
+#    -nomake demos \
+#    -nomake examples \
+#    -system-libpng \
+#    -no-gif \
+#    -system-libtiff \
+#    -no-nis \
+#    -no-openssl \
+#    -no-dbus \
+#    -no-cups \
+#    -no-iconv \
+#    -no-pch \
+#    -arch x86_64 \
+#    -L${INSTALL_DIR}/usr/lib                                            \
+#    -liconv                                                    \
+#    -lresolv                                                   \
+#    -I${INSTALL_DIR}/usr/include \
+#    -I${INSTALL_DIR}/usr/include/glib-2.0                               \
+#    -I${INSTALL_DIR}/usr/lib/glib-2.0/include                           \
+#    -I${INSTALL_DIR}/usr/include/libxml2 \
+#  || E failed to configure ${P}
+#  
+#  # qmake obviously still has some Makefile generation issues..
+#  for i in $(find * -name 'Makefile*'); do
+#    j=${i}.tmp
+#    cat ${i} \
+#      | sed \
+#        -e 's|-framework\ -framework||g' \
+#        -e 's|-framework\ -prebind||g' \
+#      > ${j}
+#    mv ${j} ${i}    
+#  done 
+#  
+#  I building ${P} \
+#  && ${MAKE} \
+#  || E failed to build ${P}
+#  
+#  I installing ${P} \
+#  && ${MAKE} install \
+#  || E failed to install ${P}
+#
+#
+#  if [ "yes" = "${INSTALL_QGL}" ]; then
+#    cd ${TMP_DIR}/${T} \
+#    && cd src/opengl \
+#    && ${MAKE} \
+#    && ${MAKE} install \
+#    || E "failed to install qgl"
+#  fi
+#
+#  touch ${TMP_DIR}/.${P}.done
+#
+#fi
 
 #
 # Install qwt
 #
 
-P=qwt-6.1.3
-URL=http://cytranet.dl.sourceforge.net/project/qwt/qwt/6.1.3/qwt-6.1.3.tar.bz2
-CKSUM=sha256:f3ecd34e72a9a2b08422fb6c8e909ca76f4ce5fa77acad7a2883b701f4309733
-T=${P}
-BRANCH=""
-
-QMAKE_CXX="${CXX}" \
-QMAKE_CXXFLAGS="${CPPFLAGS}" \
-QMAKE_LFLAGS="${LDFLAGS}" \
-EXTRA_OPTS="qwt.pro" \
-build_and_install_qmake \
-  ${P} \
-  ${URL} \
-  ${CKSUM} \
-  ${T} \
-  ${BRANCH}
+#P=qwt-6.1.3
+#URL=http://cytranet.dl.sourceforge.net/project/qwt/qwt/6.1.3/qwt-6.1.3.tar.bz2
+#CKSUM=sha256:f3ecd34e72a9a2b08422fb6c8e909ca76f4ce5fa77acad7a2883b701f4309733
+#T=${P}
+#BRANCH=""
+#
+#QMAKE_CXX="${CXX}" \
+#QMAKE_CXXFLAGS="${CPPFLAGS}" \
+#QMAKE_LFLAGS="${LDFLAGS}" \
+#EXTRA_OPTS="qwt.pro" \
+#build_and_install_qmake \
+#  ${P} \
+#  ${URL} \
+#  ${CKSUM} \
+#  ${T} \
+#  ${BRANCH}
 
 #
 # Install sip
